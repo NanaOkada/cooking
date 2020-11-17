@@ -1,0 +1,21 @@
+
+h1{
+	text-align: center;
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	color: #714B33;
+}
+
+h2{
+
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	color: #714B33;
+}
+
+li{
+	font-family:"Courier New", Courier, monospace;
+}
+
+img{
+	margin: auto;
+	display:block;
+}
