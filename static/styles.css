@@ -19,3 +19,11 @@ img{
 	margin: auto;
 	display:block;
 }
+
+section{
+  border-style: dotted;
+  border-width: thick;
+  border-color: #714B33;
+  padding: 2%;
+  margin: 2%;
+}
