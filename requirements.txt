@@ -19,3 +19,6 @@ SQLAlchemy==1.3.20
 visitor==0.1.3
 Werkzeug==1.0.1
 WTForms==2.3.3
+flask_bcrypt
+flask_login
+email_validator

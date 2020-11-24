@@ -28,6 +28,24 @@ section{
   margin: 2%;
 }
 
-.what{
-	float:left;
+.alert {
+    margin: auto; 
+    width: 100%
 }
+
+.col-md-8 {
+    margin: auto;
+    width: 100%
+}
+
+.border_bottom{
+	float: left;
+	width: 100%
+}
+
+.Content-section{
+	float: left;
+	width: 100%
+}
+
+

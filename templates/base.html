@@ -24,6 +24,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="/home">Home</a></li>
                 {% if current_user.is_authenticated %}
+                    <li><a href="/recipe">Manage recipes</a></li>
                     <li><a href="/account">My account</a></li>
                     <li><a href="/logout">Logout</a></li>
                 {% else %}
