@@ -20,12 +20,12 @@
 
     <br>
 
-    <div class="Content-section">
+    <div class="content-section">
 
     <h1>My Recipes</h1>
     <div class="container">
-        <div class="row">
-            <table class="table table-hover table-responsive table-bordered">
+        <div class="row recipe_list">
+            <table class="table table-light table-hover table-responsive table-bordered">
                 <th>
                     Title
                 </th>
@@ -85,7 +85,7 @@
             </table>
 
         </div>
-        <div class="row">
+        <div class="row recipe_form">
             {% if form_mode == "add" %}
                 <h2>Add new recipe</h2>
             {% else %}
@@ -95,7 +95,7 @@
         </div>
     </div>
 
-
+</div>
 
 
 {% endblock %}

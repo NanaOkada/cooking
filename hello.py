@@ -76,7 +76,7 @@ class RecipeForm(FlaskForm):
     ingredients = TextAreaField('Enter ingredients one on each line', validators=[DataRequired()])
     instructions = TextAreaField('Enter instructions one on each line', validators=[DataRequired()])
     notes = TextAreaField('Wanna brag?', validators=[DataRequired()])
-    submit = SubmitField('Add it')
+    submit = SubmitField('Add Recipe')
 
     def __init__(self, mode=None, **kwargs):
         super().__init__(**kwargs)
