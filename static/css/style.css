@@ -84,3 +84,7 @@ section{
 	float: left;
 	width: 100%
 }
+
+.like{
+  float: right;
+}
