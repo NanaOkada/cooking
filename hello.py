@@ -31,6 +31,17 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"User('{self.username}',{self.email}')"
 
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(120), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    username = db.Column(db.String(30), nullable=False)
+    recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.id'), nullable=False)
+    description = db.Column(db.String(65535), nullable=False)
+
+    def __repr__(self):
+        return f"Comment('{self.title}')"
+
 
 class Recipe(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -42,7 +53,7 @@ class Recipe(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
-        return f"Post('{self.title})"
+        return f"Post('{self.title}')"
 
 
 class RegistrationForm(FlaskForm):
@@ -69,6 +80,11 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember Me')
     submit = SubmitField('Sign in')
 
+
+class CommentForm(FlaskForm):
+    title = StringField('Title for your comment:', validators=[DataRequired()])
+    description = TextAreaField('Enter you comment here:', validators=[DataRequired()])
+    submit = SubmitField('Add Comment')
 
 class RecipeForm(FlaskForm):
     title = StringField('Title for your recipe', validators=[DataRequired()])
@@ -113,7 +129,8 @@ def internal_server_error(e):
 @app.route('/home')
 def home():
     recipes = Recipe.query.all()
-    return render_template('index.html', recipes=recipes)
+    comments = Comment.query.all()
+    return render_template('index.html', recipes=recipes, comments=comments)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -157,6 +174,22 @@ def logout():
 @login_required
 def account():
     return render_template('account.html', title='Account')
+
+@app.route('/comment', methods=['POST', 'GET'])
+@login_required
+def comment():
+    user = User.query.filter_by(username=current_user.username).first()
+    form = CommentForm()
+    if form.validate_on_submit():
+        recipe_id = request.args.get('recipe_id')
+        new_comment=Comment(title=form.title.data, user_id=user.id, username=user.username, description=form.description.data, recipe_id=recipe_id)
+        db.session.add(new_comment)
+        db.session.commit()
+        flash('Comment added successfully.', 'success')
+        return redirect(url_for('home'))
+    return render_template('comment.html', form=form)
+
+
 
 
 @app.route('/recipe', methods=['POST', 'GET'])
