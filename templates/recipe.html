@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Cuisine Community{% endblock %}
+
+{% block page_content %}
+    <link rel="stylesheet" href="static/css/style.css">
+
+    <div class="what">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <br>
+
+    <div class="content-section">
+
+    <h1>My Recipes</h1>
+    <div class="container">
+        <div class="row recipe_list">
+            <table class="table table-light table-hover table-responsive table-bordered">
+                <th>
+                    Title
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Ingredients
+                </th>
+                <th>
+                    Instructions
+                </th>
+                <th>
+                    Notes
+                </th>
+                <th>
+                    Action
+                </th>
+                {% for recipe in recipes %}
+                    <tr>
+                        <td>
+                            {{ recipe.title }}
+                        </td>
+                        <td>
+                            {{ recipe.description }}
+                        </td>
+                        <td>
+                            <ul>
+                                {% set ingredients =  recipe.ingredients.split('\n') %}
+                                {% for ingredient in ingredients %}
+                                    <li>{{ ingredient }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td>
+                            <ol>
+                                {% set instructions =  recipe.instructions.split('\n') %}
+                                {% for instruction in instructions %}
+                                    <li>{{ instruction }}</li>
+                                {% endfor %}
+                            </ol>
+                        </td>
+                        <td>
+                            {{ recipe.notes }}
+                        </td>
+                        <td>
+                          <div class="btn-group" role="group" aria-label="Basic example">
+                            <a class="btn btn-danger"
+                               href="{{ url_for('delete_recipe', recipe_id=recipe.id) }}">Delete Recipe</a>
+
+                            <a class="btn btn-default" href="{{ url_for('recipe', edit_recipe=recipe.id) }}"
+                              >Edit Recipe</a>
+                             </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+        <div class="row recipe_form">
+            {% if form_mode == "add" %}
+                <h2>Add new recipe</h2>
+            {% else %}
+                <h2>Update recipe</h2>
+            {% endif %}
+            {{ wtf.quick_form(form) }}
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

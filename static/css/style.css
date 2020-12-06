@@ -1,12 +1,90 @@
-section{
+h1,h2,h3{
+  font-weight: bolder;
+}
+
+a, button {
+  font-family: 'Balsamiq Sans', cursive;
+  font-size: 16px;
+  color: black;
+}
+
+.navbar {
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2), 0 4px 15px 0 rgba(0, 0, 0, 0.19);
+  padding:1%;
+  background-color: #FAFAFA;
+}
+
+.navbar-brand{
+  font-size: 30px;
+  font-family: 'Nerko One', cursive;
+  color:#F2BB66;
+}
+
+.btn-link{
+  font-size: 20px;
+}
+
+body{
+	font-family: 'Baloo 2', cursive;
+  font-size: 18px;
+  background-color: #F2BB66;
+}
+
+.recipe-block {
+  border-style: dotted;
   border-width: thick;
-  border-color: green;
-  padding: 10%;
-  margin: 10%;
+  border-color: #F2BB66;
+  color: black;
+    background-color: #FEF4D2;
+}
+
+section{
+
+  padding: 2%;
+  margin: 2%;
+  border-radius: 20px;
+  background-color: #FAFAFA;
+}
+
+.btn{
+  font-size: 16px;
+}
+
+.recipe_form {
+  width: 50%;
+}
+
+.recipe_list{
+  width: 90%;
+}
+
+.content-section{
+    background-color: #FAFAFA;
+    padding:2%;
+    margin-bottom: 2%;
+}
+
+.ingredient_container{
+
+  width: 100%;
+}
+
+.alert {
+    margin: auto;
+    width: 100%
 }
 
 
-
-.what{
+.border_bottom{
 	float: left;
+	width: 100%
+}
+
+.Content-section{
+	float: left;
+	width: 100%
+}
+
+.like{
+  float: right;
 }

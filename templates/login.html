@@ -5,17 +5,18 @@
 
 {% block page_content %}
 <link rel="stylesheet" href="static/css/style.css">
-
-<div class="what">
-  {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-      {% for category, message in messages %}
-          <div class="alert alert-{{ category }}">
-            {{ message }}
-          </div>
-      {% endfor %}
-    {% endif %}
-  {% endwith %}
+<div class="row">
+  <div class="col">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+     {% if messages %}
+       {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+              {{ message }}
+            </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </div>
 </div>
 
 <br>

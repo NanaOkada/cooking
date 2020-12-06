@@ -4,202 +4,269 @@
 {% block title %}Cuisine Community{% endblock %}
 
 {% block page_content %}
-<link rel="stylesheet" href="static/styles.css">
-<h1>Cuisine Community</h1>
-
-<div class="what">
-  {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-      {% for category, message in messages %}
-          <div class="alert alert-{{ category }}">
-            {{ message }}
-          </div>
-      {% endfor %}
-    {% endif %}
-  {% endwith %}
-</div>
-
-
-<div class="accordion" id="accordionExample">
-
-  <div class="card">
-    <div class="card-header" id="headingTwo">
-      <h2 class="mb-0">
-        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Recipe 1 TTEOKBOKKI
-        </button>
-      </h2>
+    <link rel="stylesheet" href="static/css/style.css">
+     <div class="row">
+        <div class="col">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                     <div class="alert alert-{{ category }}">
+                            {{ message }}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+         {% endwith %}
+        </div>
     </div>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-      <div class="card-body">
-        <section>
-          <h2>TTEOKBOKKI – SPICY KOREAN RICE CAKES</h2>
-          <p>
-            A delicious and incendiary Korean rice cakes recipe. Add this spicy
-            tteokbokki to your steady rotation at home!
-          </p>
+    <div class="accordion" id="accordionExample">
 
-          <h3>INGREDIENTS</h3>
+        {% for recipe in recipes %}
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <h2 class="mb-0">
+                        <button class="recipe-block btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                                data-target="#{{ recipe.id }}" aria-expanded="false" aria-controls="collapseTwo">
+                            {{ recipe.title }}
+                        </button>
+                        <div class="btn-group like" role="group" aria-label="Basic example"><a class="btn btn-success"><i class="far fa-thumbs-up"></i> Like(10)</a> <a class="btn btn-danger"><i class="far fa-thumbs-down"></i> Dislike(0)</a></div>
+                    </h2>
+                </div>
 
-          <ul id="ingredient">
+                <div id="{{ recipe.id }}" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <section>
+                            <h2>{{ recipe.title }}</h2>
+                            <p>
+                                provided by: {{ recipe.description }}
+                            </p>
+                              <div class="container ingredient_container">
+                                <div class="row">
+                                  <div class="col-lg-4">
+                                    <h3>INGREDIENTS</h3>
 
-            <li>
-              Tteokbokki (떡볶이떡): The main ingredient for this recipe. Once
-              cooked, Korean rice cakes are chewy and slightly sweet in flavor.
-            </li>
-            <li>
-              Tteokbokki sauce: A mix of anchovy stock, dried kelp, gochujang,
-              gochugaru, soy sauce, and sugar.
-            </li>
-            <li>
-              Korean fish cakes: Authentic Korean food can be very pungent and
-              these fish cakes definitely pack a punch in that department!
-            </li>
-            <li>
-              Sesame oil: Add it once the cooking process is finished to
-              preserve the delicate nutty flavor. A little goes a long way with
-              sesame oil.
-            </li>
-            <li>
-              Scallions: The chopped scallions add a really nice and refreshing
-              crunch to the dish.
-            </li>
-            <li>
-              Sesame seeds: Optional but recommended if you like lots of
-              nuttiness!
-            </li>
+                                    <ul id="ingredient">
+                                        {% set ingredients =  recipe.ingredients.split('\n') %}
+                                        {% for ingredient in ingredients %}
+                                            <li>{{ ingredient }}</li>
+                                        {% endfor %}
 
-          </ul>
+                                    </ul>
+                                  </div>
 
-          <h3>INSTRUCTIONS</h3>
+                                  <div class="col-lg-8">
+                                    <h3>INSTRUCTIONS</h3>
 
-          <ol id="instruction">
+                                    <ol id="instruction">
+                                        {% set instructions =  recipe.instructions.split('\n') %}
+                                        {% for instruction in instructions %}
+                                            <li>{{ instruction }}</li>
+                                        {% endfor %}
+                                    </ol>
+                                  </div>
 
-            <li>
-              Soak rice cakes in water for 10-15 minutes (This step is for rice cakes
-              that are hard. Skip this step if they are already soft).
-            </li>
-            <li>
-              In a medium size pot over high heat, add anchovy stock and dried kelp and
-              bring to a boil. Remove the kelp, lower the heat to low, and simmer for 10
-              minutes, uncovered.
-            </li>
-            <li>
-              Stir in gochujang, gochugaru, soy sauce and sugar – and bring back to a
-              boil.
-            </li>
-            <li>
-              Add rice cakes and cook for 8-10 minute, stirring frequently until they
-              are soft..
-            </li>
-            <li>Add fish cake and cook for 4 minutes, stirring frequently.</li>
-            <li>
-              Turn off the heat and stir in sesame oil. Add scallions, stir and transfer
-              to a bowl. Sprinkle sesame seeds on top (optional) and serve.
-            </li>
-          </ol>
+                                </div>
 
-          <h3>NOTES</h3>
-          <p>
-            Tteokbokki is best served immediately after cooking. While the spicy Korean
-            rice cakes can be stored in the fridge for 2-3 days, they will naturally get
-            hard when they cool down. Definitely better fresh!
-          </p>
-        </section>
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-header" id="headingThree">
-      <h2 class="mb-0">
-        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          Recipe 2 TTEOKBOKKI 
-        </button>
-      </h2>
-    </div>
-    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-      <div class="card-body">
-        <section>
-          <h2>TTEOKBOKKI – SPICY KOREAN RICE CAKES</h2>
-          <p>
-            A delicious and incendiary Korean rice cakes recipe. Add this spicy
-            tteokbokki to your steady rotation at home!
-          </p>
+                              </div>
+                            <h3>NOTES</h3>
+                            <p>
+                                {{ recipe.notes }}
+                            </p>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
 
-          <h3>INGREDIENTS</h3>
 
-          <ul id="ingredient">
 
-            <li>
-              Tteokbokki (떡볶이떡): The main ingredient for this recipe. Once
-              cooked, Korean rice cakes are chewy and slightly sweet in flavor.
-            </li>
-            <li>
-              Tteokbokki sauce: A mix of anchovy stock, dried kelp, gochujang,
-              gochugaru, soy sauce, and sugar.
-            </li>
-            <li>
-              Korean fish cakes: Authentic Korean food can be very pungent and
-              these fish cakes definitely pack a punch in that department!
-            </li>
-            <li>
-              Sesame oil: Add it once the cooking process is finished to
-              preserve the delicate nutty flavor. A little goes a long way with
-              sesame oil.
-            </li>
-            <li>
-              Scallions: The chopped scallions add a really nice and refreshing
-              crunch to the dish.
-            </li>
-            <li>
-              Sesame seeds: Optional but recommended if you like lots of
-              nuttiness!
-            </li>
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h2 class="mb-0">
+                    <button class="recipe-block btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                            data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Recipe 1 TTEOKBOKKI
+                    </button>
+                    <div class="btn-group like" role="group" aria-label="Basic example"><a class="btn btn-success"><i class="far fa-thumbs-up"></i> Like(10)</a> <a class="btn btn-danger"><i class="far fa-thumbs-down"></i> Dislike(0)</a></div>
+                </h2>
+                </h2>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body">
+                    <section>
+                        <h2>TTEOKBOKKI – SPICY KOREAN RICE CAKES</h2>
+                        <p>
+                            A delicious and incendiary Korean rice cakes recipe. Add this spicy
+                            tteokbokki to your steady rotation at home!
+                        </p>
+                        <div class="container ingredient_container">
+                          <div class="row">
+                            <div class="col-lg-4">
 
-          </ul>
+                              <h3>INGREDIENTS</h3>
 
-          <h3>INSTRUCTIONS</h3>
+                              <ul id="ingredient">
 
-          <ol id="instruction">
+                                  <li>
+                                      Tteokbokki (떡볶이떡)
+                                  </li>
+                                  <li>
+                                      Tteokbokki sauce
+                                  </li>
+                                  <li>
+                                      Korean fish cakes
+                                  </li>
+                                  <li>
+                                      Sesame oil
+                                  </li>
+                                  <li>
+                                      Scallions
+                                  </li>
+                                  <li>
+                                      Sesame seeds
+                                  </li>
 
-            <li>
-              Soak rice cakes in water for 10-15 minutes (This step is for rice cakes
-              that are hard. Skip this step if they are already soft).
-            </li>
-            <li>
-              In a medium size pot over high heat, add anchovy stock and dried kelp and
-              bring to a boil. Remove the kelp, lower the heat to low, and simmer for 10
-              minutes, uncovered.
-            </li>
-            <li>
-              Stir in gochujang, gochugaru, soy sauce and sugar – and bring back to a
-              boil.
-            </li>
-            <li>
-              Add rice cakes and cook for 8-10 minute, stirring frequently until they
-              are soft..
-            </li>
-            <li>Add fish cake and cook for 4 minutes, stirring frequently.</li>
-            <li>
-              Turn off the heat and stir in sesame oil. Add scallions, stir and transfer
-              to a bowl. Sprinkle sesame seeds on top (optional) and serve.
-            </li>
-          </ol>
+                              </ul>
+                            </div>
 
-          <h3>NOTES</h3>
-          <p>
-            Tteokbokki is best served immediately after cooking. While the spicy Korean
-            rice cakes can be stored in the fridge for 2-3 days, they will naturally get
-            hard when they cool down. Definitely better fresh!
-          </p>
-        </section>
-    </div>
-  </div>
-</div>
+                            <div class="col-lg-8">
+                              <h3>INSTRUCTIONS</h3>
 
-<!-- <footer>
-  <a href="https://www.justonecookbook.com/sukiyaki/"> Source of this Recipe</a>
-</footer> -->
+                              <ol id="instruction">
+
+                                  <li>
+                                      Soak rice cakes in water for 10-15 minutes (This step is for rice cakes
+                                      that are hard. Skip this step if they are already soft).
+                                  </li>
+                                  <li>
+                                      In a medium size pot over high heat, add anchovy stock and dried kelp and
+                                      bring to a boil. Remove the kelp, lower the heat to low, and simmer for 10
+                                      minutes, uncovered.
+                                  </li>
+                                  <li>
+                                      Stir in gochujang, gochugaru, soy sauce and sugar – and bring back to a
+                                      boil.
+                                  </li>
+                                  <li>
+                                      Add rice cakes and cook for 8-10 minute, stirring frequently until they
+                                      are soft..
+                                  </li>
+                                  <li>Add fish cake and cook for 4 minutes, stirring frequently.</li>
+                                  <li>
+                                      Turn off the heat and stir in sesame oil. Add scallions, stir and transfer
+                                      to a bowl. Sprinkle sesame seeds on top (optional) and serve.
+                                  </li>
+                              </ol>
+                            </div>
+
+                          </div>
+                        </div>
+
+                        <h3>NOTES</h3>
+                        <p>
+                            Tteokbokki is best served immediately after cooking. While the spicy Korean
+                            rice cakes can be stored in the fridge for 2-3 days, they will naturally get
+                            hard when they cool down. Definitely better fresh!
+                        </p>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingThree">
+                <h2 class="mb-0">
+                    <button class="recipe-block btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                            data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Recipe 2 TTEOKBOKKI
+                    </button>
+                    <div class="btn-group like" role="group" aria-label="Basic example"><a class="btn btn-success"><i class="far fa-thumbs-up"></i> Like(10)</a> <a class="btn btn-danger"><i class="far fa-thumbs-down"></i> Dislike(0)</a></div>
+                </h2>
+                </h2>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                <div class="card-body">
+                  <section>
+                      <h2>TTEOKBOKKI – SPICY KOREAN RICE CAKES</h2>
+                      <p>
+                          A delicious and incendiary Korean rice cakes recipe. Add this spicy
+                          tteokbokki to your steady rotation at home!
+                      </p>
+                      <div class="container ingredient_container">
+                        <div class="row">
+                          <div class="col-lg-4">
+
+                            <h3>INGREDIENTS</h3>
+
+                            <ul id="ingredient">
+
+                                <li>
+                                    Tteokbokki (떡볶이떡)
+                                </li>
+                                <li>
+                                    Tteokbokki sauce
+                                </li>
+                                <li>
+                                    Korean fish cakes
+                                </li>
+                                <li>
+                                    Sesame oil
+                                </li>
+                                <li>
+                                    Scallions
+                                </li>
+                                <li>
+                                    Sesame seeds
+                                </li>
+
+                            </ul>
+                          </div>
+
+                          <div class="col-lg-8">
+                            <h3>INSTRUCTIONS</h3>
+
+                            <ol id="instruction">
+
+                                <li>
+                                    Soak rice cakes in water for 10-15 minutes (This step is for rice cakes
+                                    that are hard. Skip this step if they are already soft).
+                                </li>
+                                <li>
+                                    In a medium size pot over high heat, add anchovy stock and dried kelp and
+                                    bring to a boil. Remove the kelp, lower the heat to low, and simmer for 10
+                                    minutes, uncovered.
+                                </li>
+                                <li>
+                                    Stir in gochujang, gochugaru, soy sauce and sugar – and bring back to a
+                                    boil.
+                                </li>
+                                <li>
+                                    Add rice cakes and cook for 8-10 minute, stirring frequently until they
+                                    are soft..
+                                </li>
+                                <li>Add fish cake and cook for 4 minutes, stirring frequently.</li>
+                                <li>
+                                    Turn off the heat and stir in sesame oil. Add scallions, stir and transfer
+                                    to a bowl. Sprinkle sesame seeds on top (optional) and serve.
+                                </li>
+                            </ol>
+                          </div>
+
+                        </div>
+                      </div>
+
+                      <h3>NOTES</h3>
+                      <p>
+                          Tteokbokki is best served immediately after cooking. While the spicy Korean
+                          rice cakes can be stored in the fridge for 2-3 days, they will naturally get
+                          hard when they cool down. Definitely better fresh!
+                      </p>
+                  </section>
+                </div>
+            </div>
+        </div>
+
+        <!-- <footer>
+          <a href="https://www.justonecookbook.com/sukiyaki/"> Source of this Recipe</a>
+        </footer> -->
 
 
 

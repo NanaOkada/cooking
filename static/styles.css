@@ -11,6 +11,21 @@ h2{
 	color: #714B33;
 }
 
+a {
+  font-family: 'Balsamiq Sans', cursive;
+  font-size: 16px;
+  color: black;
+}
+
+.navbar {
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2), 0 4px 15px 0 rgba(0, 0, 0, 0.19);
+}
+
+.navbar-brand{
+  font-size: 30px;
+  font-family: 'Nerko One', cursive;
+}
+
 li{
 	font-family:"Courier New", Courier, monospace;
 }
@@ -28,6 +43,22 @@ section{
   margin: 2%;
 }
 
-.what{
-	float:left;
+.alert {
+    margin: auto;
+    width: 100%
+}
+
+.col-md-8 {
+    margin: auto;
+    width: 100%
+}
+
+.border_bottom{
+	float: left;
+	width: 100%
+}
+
+.Content-section{
+	float: left;
+	width: 100%
 }
