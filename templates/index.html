@@ -28,7 +28,7 @@
                                 data-target="#{{ recipe.id }}" aria-expanded="false" aria-controls="collapseTwo">
                             {{ recipe.title }}
                         </button>
-                        <div class="btn-group like" role="group" aria-label="Basic example"><a class="btn btn-success"><i class="far fa-thumbs-up"></i> Like(10)</a> <a class="btn btn-danger"><i class="far fa-thumbs-down"></i> Dislike(0)</a><a class="btn btn-default" href="{{ url_for('comment', recipe_id=recipe.id) }}">Comment</a></div>
+                        <div class="btn-group like" role="group" aria-label="Basic example"><a class="btn btn-success" href="{{ url_for('like', recipe_id=recipe.id) }}"><i class="far fa-thumbs-up"></i> Like({{recipe.like}})</a> <a class="btn btn-danger" href="{{ url_for('dislike', recipe_id=recipe.id) }}"><i class="far fa-thumbs-down" ></i> Dislike({{recipe.dislike}})</a><a class="btn btn-default" href="{{ url_for('comment', recipe_id=recipe.id) }}">Comment</a></div>
                     </h2>
                 </div>
 

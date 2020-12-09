@@ -51,6 +51,8 @@ class Recipe(db.Model):
     instructions = db.Column(db.String(65535), nullable=False)
     notes = db.Column(db.String(65535), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    like = db.Column(db.Integer, default=0, nullable=False)
+    dislike = db.Column(db.Integer, default=0, nullable=False)
 
     def __repr__(self):
         return f"Post('{self.title}')"
@@ -128,7 +130,7 @@ def internal_server_error(e):
 @app.route('/')
 @app.route('/home')
 def home():
-    recipes = Recipe.query.all()
+    recipes = Recipe.query.order_by(Recipe.like.desc()).all()
     comments = Comment.query.all()
     return render_template('index.html', recipes=recipes, comments=comments)
 
@@ -189,8 +191,29 @@ def comment():
         return redirect(url_for('home'))
     return render_template('comment.html', form=form)
 
+@app.route('/like', methods=['GET'])
+@login_required
+def like():
+    recipe_id = request.args.get('recipe_id')
+    recipe = Recipe.query.filter_by(id=recipe_id).first()
+    new_like = recipe.like+1
+    recipe.like = new_like
+    db.session.commit()
+    recipes = Recipe.query.order_by(Recipe.like.desc()).all()
+    comments = Comment.query.all()
+    return render_template('index.html', recipes=recipes, comments=comments)
 
-
+@app.route('/dislike', methods=['GET'])
+@login_required
+def dislike():
+    recipe_id = request.args.get('recipe_id')
+    recipe = Recipe.query.filter_by(id=recipe_id).first()
+    new_dislike = recipe.dislike+1
+    recipe.dislike = new_dislike
+    db.session.commit()
+    recipes = Recipe.query.order_by(Recipe.like.desc()).all()
+    comments = Comment.query.all()
+    return render_template('index.html', recipes=recipes, comments=comments)
 
 @app.route('/recipe', methods=['POST', 'GET'])
 @login_required
@@ -199,7 +222,7 @@ def recipe():
     form = RecipeForm()
     if request.method == "GET":
         form_mode = "add"
-        recipes = Recipe.query.filter_by(user_id=user.id).all()
+        recipes = Recipe.query.filter_by(user_id=user.id).order_by(Recipe.like.desc()).all()
         if 'edit_recipe' in request.args:
             recipe_id = request.args.get('edit_recipe')
             recipe_to_update = Recipe.query.filter_by(id=recipe_id).first()
